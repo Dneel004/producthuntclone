@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>Daniel Neel</title>
+    <title>Product Hunt</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
 
@@ -53,11 +53,19 @@
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav ml-auto">
+                  <div class="navbar-nav ml-auto">
                     <!--<a class="nav-item nav-link active" href="#">Profile <span class="sr-only">(current)</span></a> -->
-                    <a class="nav-item nav-link" href="" target="_blank">Sign Up</a>
-                    <a class="nav-item nav-link" href="" target="_blank">Login</a>
-                </div>
+                    {% if user.is_authenticated %}
+                    <a class="nav-item nav-link" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+                    <form id="logout" method="POST" action="{% url 'logout' %}">
+                      {% csrf_token %}
+                      <input type="hidden" />
+                    </form>
+                    {% else %}
+                    <a class="nav-item nav-link" href="{% url 'signup' %}">Sign Up</a>
+                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                    {% endif %}
+                  </div>
                 </div>
             </div>    
         </nav>
